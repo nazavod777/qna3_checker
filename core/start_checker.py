@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 import aiohttp
 from eth_account import Account
 from eth_account.account import LocalAccount
@@ -42,9 +40,6 @@ class Checker:
                     json={
                         'signature': sign_hash,
                         'wallet_address': self.account.address
-                    },
-                    headers={
-                        'x-id': str(uuid4())
                     },
                     proxy=proxy
                 )
@@ -107,13 +102,14 @@ class Checker:
                     'accept-language': 'ru,en;q=0.9,vi;q=0.8,es;q=0.7,cy;q=0.6',
                     'content-type': 'application/json',
                     'origin': 'https://staging.qna3.ai',
+                    'X-Lang': 'english',
                     'user-agent': random_useragent()
                 },
                 connector=aiohttp.TCPConnector(
                     verify_ssl=None,
                     ssl=False,
                     use_dns_cache=False,
-                    ttl_dns_cache=300,
+                    ttl_dns_cache=None,
                     limit=None
                 ),
                 timeout=aiohttp.ClientTimeout(10)
